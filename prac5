@@ -1,0 +1,208 @@
+PRACTICAL 5 — PYTHON WITH MONGODB
+
+STEP 1: SET PYTHON PATH
+
+Find the Scripts folder of Python.
+
+Example:
+%localappdata%
+
+Go to:
+Programs → Python → Python37-32 → Scripts
+
+Copy the Scripts folder path.
+
+Add it to:
+System Variables → Path
+
+
+STEP 2: INSTALL PYMONGO
+
+Open CMD and type:
+pip install pymongo
+
+
+STEP 3: START MONGODB
+
+Open a new CMD.
+
+Type:
+mongod
+
+Open another CMD.
+
+Type:
+mongo
+
+MongoDB Shell will open.
+
+
+STEP 4: RUN PYTHON CODE
+
+Open Python IDLE.
+
+Create a new Python file.
+
+Write the code and run it.
+
+STEP 5: VERIFY OUTPUT
+
+Check the output using MongoDB Shell.
+
+
+1. INSERT
+
+Save as:
+insert.py
+
+CODE:
+
+from pymongo import MongoClient
+
+client=MongoClient('localhost',27017)
+db=client.TYITDB269641
+
+def insert():
+    try:
+        name1=input("Enter the Name: ")
+        age1=input("Enter the Age: ")
+        dept1=input("Enter the Department: ")
+        pin1=input("Enter the Pin No: ")
+
+        db.MyCol.insert_one({
+            "name":name1,
+            "age":age1,
+            "dept":dept1,
+            "pin":pin1
+        })
+
+        print("Inserted data successfully")
+    except Exception as e:
+        print(str(e))
+
+insert()
+
+
+VERIFY IN MONGODB SHELL:
+
+show dbs
+
+use TYITDB269641
+
+show collections
+
+db.MyCol.find()
+
+
+2. UPDATE
+
+Save as:
+
+update.py
+
+CODE:
+
+from pymongo import MongoClient
+
+client=MongoClient('localhost',27017)
+db=client.TYITDB269641
+
+def update():
+    try:
+        name1=input("Enter the Name: ")
+        age1=input("Enter the New Age: ")
+
+        db.MyCol.update_one(
+            {"name":name1},
+            {"$set":{"age":age1}}
+        )
+
+        print("Updated data successfully")
+    except Exception as e:
+        print(str(e))
+
+update()
+
+
+3. READ
+
+Save as:
+
+read.py
+
+CODE:
+
+from pymongo import MongoClient
+
+client=MongoClient('localhost',27017)
+db=client.TYITDB269641
+
+def read():
+    try:
+        Col=db.MyCol.find()
+
+        print("\nAll data from database TYITDB269641:")
+
+        for MyCol in Col:
+            print(MyCol)
+
+    except Exception:
+        print(str(e))
+
+read()
+
+
+4. DELETE
+
+Save as:
+
+delete.py
+
+CODE:
+
+from pymongo import MongoClient
+
+client=MongoClient('localhost',27017)
+db=client.TYITDB269641
+
+def delete():
+    try:
+        name1=input("Enter the Name: ")
+
+        db.MyCol.delete_one({"name":name1})
+
+        print("Deleted data successfully")
+    except Exception as e:
+        print(str(e))
+
+delete()
+
+
+EXAMPLE INPUT FOR INSERT:
+
+Enter the Name: Manisha
+Enter the Age: 19
+Enter the Department: IT
+Enter the Pin: 400081
+
+
+MONGODB COMMANDS:
+
+show dbs
+
+use TYITDB269641
+
+show collections
+
+db.MyCol.find()
+
+
+GITHUB STRUCTURE:
+
+Practical-5/
+│
+├── insert.py
+├── update.py
+├── read.py
+├── delete.py
+└── README.md
